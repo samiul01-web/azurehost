@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Daily Routine Planner</title>
     <style>
         * {
             margin: 0;
@@ -11,230 +11,196 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
             padding: 20px;
         }
-        
-        .login-container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            padding: 40px;
-            text-align: center;
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
-        
-        .login-header {
-            margin-bottom: 30px;
-        }
-        
-        .login-header h1 {
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .login-header p {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        
-        .input-group label {
-            display: block;
-            color: #555;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .input-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-        
-        .input-group input:focus {
-            border-color: #6e8efb;
-            outline: none;
-        }
-        
-        .login-button {
-            background: linear-gradient(to right, #6e8efb, #a777e3);
+
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.3s;
-            margin-top: 10px;
+            text-align: center;
+            padding: 25px 20px;
         }
-        
-        .login-button:hover {
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .date {
+            font-size: 16px;
             opacity: 0.9;
         }
-        
-        .separator {
-            display: flex;
-            align-items: center;
-            margin: 25px 0;
+
+        .routine-container {
+            padding: 20px;
         }
-        
-        .separator .line {
-            flex: 1;
-            height: 1px;
-            background-color: #ddd;
-        }
-        
-        .separator p {
-            padding: 0 15px;
-            color: #777;
-            font-size: 14px;
-        }
-        
-        .social-login {
-            display: flex;
-            justify-content: center;
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: 100px 1fr;
             gap: 15px;
-            margin-bottom: 25px;
         }
-        
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s;
+
+        .time-label {
+            font-weight: bold;
+            color: #6a11cb;
+            padding: 10px;
+            text-align: right;
+            border-right: 2px solid #eee;
         }
-        
-        .social-icon:hover {
-            transform: translateY(-3px);
+
+        .task {
+            background: #f9f9f9;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #6a11cb;
+            transition: all 0.3s ease;
         }
-        
-        .google {
-            background-color: #DB4437;
-            color: white;
+
+        .task:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
-        
-        .facebook {
-            background-color: #4267B2;
-            color: white;
+
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 5px;
         }
-        
-        .twitter {
-            background-color: #1DA1F2;
-            color: white;
-        }
-        
-        .forgot-password {
-            display: block;
-            color: #6e8efb;
-            text-decoration: none;
-            font-size: 14px;
-            margin-top: 15px;
-        }
-        
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-        
-        .signup-link {
-            margin-top: 25px;
+
+        .task-desc {
             font-size: 14px;
             color: #666;
         }
-        
-        .signup-link a {
-            color: #6e8efb;
-            text-decoration: none;
-            font-weight: 600;
+
+        .completed {
+            opacity: 0.7;
+            border-left-color: #4caf50;
         }
-        
-        .signup-link a:hover {
-            text-decoration: underline;
+
+        .completed .task-title {
+            text-decoration: line-through;
         }
-        
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 30px 20px;
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 600px) {
+            .time-slots {
+                grid-template-columns: 1fr;
+            }
+            
+            .time-label {
+                text-align: left;
+                border-right: none;
+                border-bottom: 2px solid #eee;
+                padding-bottom: 5px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-header">
-            <h1>Welcome Back</h1>
-            <p>Please enter your details to sign in</p>
-        </div>
+    <div class="container">
+        <header>
+            <h1>Daily Routine Planner</h1>
+            <div class="date" id="current-date">Monday, January 1, 2023</div>
+        </header>
         
-        <form>
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Enter your email" required>
+        <div class="routine-container">
+            <div class="time-slots">
+                <div class="time-label">7:00 AM</div>
+                <div class="task">
+                    <div class="task-title">Wake Up & Morning Routine</div>
+                    <div class="task-desc">Brush teeth, wash face, get dressed</div>
+                </div>
+                
+                <div class="time-label">8:00 AM</div>
+                <div class="task">
+                    <div class="task-title">Breakfast</div>
+                    <div class="task-desc">Healthy breakfast with coffee/tea</div>
+                </div>
+                
+                <div class="time-label">9:00 AM</div>
+                <div class="task completed">
+                    <div class="task-title">Work/Study Session</div>
+                    <div class="task-desc">Focus on important tasks</div>
+                </div>
+                
+                <div class="time-label">12:00 PM</div>
+                <div class="task">
+                    <div class="task-title">Lunch Break</div>
+                    <div class="task-desc">Prepare and eat lunch</div>
+                </div>
+                
+                <div class="time-label">1:00 PM</div>
+                <div class="task">
+                    <div class="task-title">Afternoon Work</div>
+                    <div class="task-desc">Continue with tasks and projects</div>
+                </div>
+                
+                <div class="time-label">4:00 PM</div>
+                <div class="task">
+                    <div class="task-title">Exercise</div>
+                    <div class="task-desc">30 minutes of physical activity</div>
+                </div>
+                
+                <div class="time-label">6:00 PM</div>
+                <div class="task">
+                    <div class="task-title">Dinner</div>
+                    <div class="task-desc">Evening meal with family/friends</div>
+                </div>
+                
+                <div class="time-label">8:00 PM</div>
+                <div class="task">
+                    <div class="task-title">Relaxation Time</div>
+                    <div class="task-desc">Read, watch TV, or hobby</div>
+                </div>
+                
+                <div class="time-label">10:00 PM</div>
+                <div class="task">
+                    <div class="task-title">Prepare for Bed</div>
+                    <div class="task-desc">Wind down and get ready for sleep</div>
+                </div>
             </div>
-            
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
-            </div>
-            
-            <button type="submit" class="login-button">Sign In</button>
-            
-            <a href="#" class="forgot-password">Forgot password?</a>
-        </form>
-        
-        <div class="separator">
-            <div class="line"></div>
-            <p>or</p>
-            <div class="line"></div>
         </div>
         
-        <div class="social-login">
-            <div class="social-icon google">G</div>
-            <div class="social-icon facebook">f</div>
-            <div class="social-icon twitter">t</div>
-        </div>
-        
-        <div class="signup-link">
-            Don't have an account? <a href="#">Sign up</a>
-        </div>
+        <footer>
+            Plan your day for better productivity!
+        </footer>
     </div>
 
     <script>
-        // Simple form validation
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            if (email && password) {
-                alert('Login successful!');
-                // In a real application, you would send this data to a server
-            } else {
-                alert('Please fill in all fields');
-            }
+        // Simple script to display current date
+        const dateElement = document.getElementById('current-date');
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const today = new Date();
+        dateElement.textContent = today.toLocaleDateString('en-US', options);
+        
+        // Add click functionality to mark tasks as complete
+        const tasks = document.querySelectorAll('.task');
+        tasks.forEach(task => {
+            task.addEventListener('click', () => {
+                task.classList.toggle('completed');
+            });
         });
     </script>
 </body>
